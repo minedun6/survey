@@ -35,7 +35,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title pull-left">Question {{ index + 1 }} : <span
                                             v-text="q.questionText"></span></h4>
-                                    <button class="btn btn-danger btn-xs pull-right">
+                                    <button class="btn btn-danger btn-xs pull-right" @click="deleteQuestion(index)">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                     <div class="clearfix"></div>
@@ -55,36 +55,9 @@
                                             <label for="newQuestionMandatory">Mandatory</label>
                                         </div>
                                     </div>
-                                    <div class="row" id="choices-area">
-                                        <div class="row form-group" v-for="( choice, ind ) in q.choices ">
-                                            <div class="col-md-1" style="top: 5px; left: 6%;">
-                                                <input type="checkbox" id="inputCheckbox" disabled/>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" :placeholder="'Choice ' + (ind + 1)" v-model="choice.choiceText"/>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <input type="checkbox" autocomplete="off"
-                                                       v-model="q.canComment"
-                                                       style="display: none;">
-                                                <span :class="[q.choices[ind].canComment ? 'glyphicon glyphicon-comment active' : 'glyphicon glyphicon-comment']"
-                                                      style="cursor: pointer; top: 10px;"
-                                                      @click="toggleChoiceCanComment(q, ind)"></span>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span class="glyphicon glyphicon-trash"
-                                                      style="cursor: pointer; top: 10px; right: 100%;"
-                                                      @click="deleteQuestionChoice(q, ind)"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col-md-offset-1" style="margin-left: 9%;">
-                                                <button class="btn btn-xs btn-primary" @click="addQuestionChoice(q)">
-                                                    <i class="glyphicon glyphicon-plus-sign"></i> New Choice
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- List of choices -->
+
+                                    <!---->
                                 </div>
                             </div>
                         </div>
@@ -96,10 +69,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Question types :</div>
                         <div class="panel-body" id="draggable-questions-type">
-                            <span v-for="(type, index) in ui.questionsType" class="badge ui-draggable"
-                                  data-question-type="index">
-                                {{ type }}
-                            </span>
+                            <question-types :data="ui.questionsType"></question-types>
                         </div>
                     </div>
                 </div>
@@ -108,43 +78,26 @@
     </div>
 </template>
 
-<style scoped>
-    .form-control-feedback {
-        pointer-events: initial;
-    }
-
-    .active {
-        color: #15a4fa;
-    }
-
-    .dropzone {
-        height: 7em;
-        margin-bottom: 20px;
-        color: #ccc;
-        border: 2px dashed #ccc;
-        line-height: 7em;
-        text-align: center
-    }
-
-    .drop {
-        color: #222;
-        border-color: #222;
-    }
-
-</style>
-
 <script>
     import draggable from 'jquery-ui/ui/widgets/draggable'
     import sortable from 'jquery-ui/ui/widgets/sortable'
     import droppable from 'jquery-ui/ui/widgets/droppable'
+    import QuestionType from "./Survey/Questions/QuestionType";
 
     export default {
-        mounted() {
+        components: {QuestionType},
+        mounted: function () {
             let vm = this;
             $('#droppable-area').droppable({
                 classes: {
                     "ui-droppable-hover": "drop"
                 },
+                drop: function (event, ui) {
+                    let draggable = ui.draggable;
+                    vm.ui.questions.push(vm.newQuestionInstance(
+                        draggable.attr('data-question-type')
+                    ));
+                }
             });
             $('.ui-draggable').draggable({
                 cursor: "move",
@@ -155,7 +108,6 @@
                         wasJustDropped = dropped && dropped[0].id === "droppable-area";
                     if (wasJustDropped) {
                         // don't revert, it's in the droppable
-                        vm.ui.questions.push(vm.newQuestionInstance());
                         return false;
                     } else {
                         if (hasBeenDroppedBefore) {
@@ -176,7 +128,24 @@
                     surveyTitle: 'Empty Survey',
                     editingMode: false,
                     questions: [],
-                    questionsType: ['Multiple Choice', 'Unique Choice', 'Scale', 'Free']
+                    questionsType: [
+                        {
+                            key: 'multiple',
+                            label: 'Multiple Choice'
+                        },
+                        {
+                            key: 'single',
+                            label: 'Single Choice'
+                        },
+                        {
+                            key: 'scale',
+                            label: 'Scale'
+                        },
+                        {
+                            key: 'free',
+                            label: 'Free'
+                        },
+                    ]
                 }
             }
         },
@@ -187,9 +156,9 @@
             toggleChoiceCanComment(question, choice) {
                 question.choices[choice].canComment = !question.choices[choice].canComment;
             },
-            newQuestionInstance() {
+            newQuestionInstance(type) {
                 return {
-                    type: '',
+                    type: type,
                     questionText: '',
                     mandatory: true,
                     choices: [
@@ -212,7 +181,35 @@
                 // flash message with incapability to have less than 2 choices
                 if (question.choices.length <= 2) return;
                 question.choices.splice(key, 1);
+            },
+            deleteQuestion(question) {
+                this.ui.questions.splice(question, 1);
             }
         }
     }
 </script>
+
+<style scoped>
+    .form-control-feedback {
+        pointer-events: initial;
+    }
+
+    .active {
+        color: #15a4fa;
+    }
+
+    .dropzone {
+        height: 12em;
+        margin-bottom: 20px;
+        color: #ccc;
+        border: 2px dashed #ccc;
+        line-height: 12em;
+        text-align: center
+    }
+
+    .drop {
+        color: #222;
+        border-color: #222;
+    }
+
+</style>
