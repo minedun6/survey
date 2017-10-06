@@ -25,9 +25,9 @@
                 </div>
             </div>
             <!-- List of choices -->
-                <choices :data="question.choices" :type="question.type.questionType">
+            <choices :data="question.choices" :type="question.type.questionType">
 
-                </choices>
+            </choices>
             <!---->
         </div>
     </div>
@@ -36,6 +36,9 @@
 <script>
     export default {
         props: ['question', 'index'],
+        mounted() {
+            $('html, body').animate({ scrollTop: $('#app').height() - this.$el.clientHeight }, "slow");
+        },
         data() {
             return {
                 title: '',
