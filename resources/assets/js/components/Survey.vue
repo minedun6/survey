@@ -4,21 +4,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">
-                        <span v-if="!ui.editingMode">
-                            {{ ui.surveyTitle }}
-                            <button class="btn btn-xs btn-danger" @click="toggleSurveyChangeTitle">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                        </span>
-                        <span v-else>
-                            <div class="form-group has-feedback ">
-                                <input type="text" class="form-control" v-model="ui.surveyTitle"/>
-                                <a href="#" @click="toggleSurveyChangeTitle">
-                                    <span class="glyphicon glyphicon-check form-control-feedback">
-                                    </span>
-                                </a>
-                            </div>
-                        </span>
+                        <survey-title></survey-title>
                     </div>
                 </div>
             </div>
@@ -81,8 +67,6 @@
 </script>
 
 <style scoped>
-    .form-control-feedback {
-        pointer-events: initial;
-    }
+
 
 </style>

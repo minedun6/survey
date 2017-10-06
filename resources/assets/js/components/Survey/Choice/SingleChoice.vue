@@ -1,7 +1,7 @@
 <template>
     <div class="row form-group">
         <div slot="iType" class="col-md-1" style="top: 5px; left: 6%;">
-            <input type="checkbox" disabled/>
+            <input type="radio" disabled/>
         </div>
         <div slot="input" class="col-md-8">
             <input type="text" class="form-control"/>
@@ -28,9 +28,3 @@
 
     });
 </script>
-
-<style scoped>
-    .active {
-        color: #15a4fa;
-    }
-</style>

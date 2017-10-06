@@ -25,7 +25,9 @@
                 </div>
             </div>
             <!-- List of choices -->
+                <choices :data="question.choices" :type="question.type.questionType">
 
+                </choices>
             <!---->
         </div>
     </div>
