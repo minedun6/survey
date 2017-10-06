@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="(type, index) in items" class="row">
-            <question-type>
+            <question-type :type="type">
                 {{ type.label }}
             </question-type>
         </div>
@@ -13,7 +13,7 @@
     import QuestionType from './QuestionType'
 
     export default Collection.extend({
-        components: { QuestionType },
+        components: { QuestionType }
     });
 </script>
 

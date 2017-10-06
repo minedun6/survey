@@ -29,5 +29,7 @@
 </script>
 
 <style scoped>
-
+    .active {
+        color: #15a4fa;
+    }
 </style>
