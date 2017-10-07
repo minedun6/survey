@@ -17,6 +17,11 @@
 
     export default Collection.extend({
         props: ['type'],
+        mounted() {
+            eventHub.$on('choice-can-be-comment-toggle', (choice) => {
+                choice.choice.canComment = !choice.choice.canComment;
+            })
+        },
         computed: {
             choiceType() {
                 let component = this.type + 'Choice'

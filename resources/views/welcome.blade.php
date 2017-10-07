@@ -12,7 +12,11 @@
     </head>
     <body>
         <div class="container-fluid" id="app">
-            <survey></survey>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <survey-builder></survey-builder>
+                </div>
+            </div>
         </div>
         <script src="/js/app.js"></script>
         <script>

@@ -1,6 +1,10 @@
 <template>
-    <div class="dropzone" id="droppable-area">
-        Just drag question type to create survey questions ...
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="dropzone" id="droppable-area">
+                Just drag question type to create survey questions ...
+            </div>
+        </div>
     </div>
 </template>
 

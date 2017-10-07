@@ -4,13 +4,13 @@
             <input type="checkbox" disabled/>
         </div>
         <div slot="input" class="col-md-8">
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" v-model="choice.text"/>
         </div>
         <div slot="actions">
             <div class="col-md-1">
                 <input type="checkbox" autocomplete="off"
                        style="display: none;">
-                <span class="glyphicon glyphicon-comment"
+                <span :class="commentable" @click="triggerChoiceCanBeCommented"
                       style="cursor: pointer; top: 10px;"></span>
             </div>
             <div class="col-md-1">
@@ -24,8 +24,12 @@
 <script>
     import Choice from './Choice';
 
-    export default Choice.extend ({
-
+    export default Choice.extend({
+        computed: {
+            commentable() {
+                return (this.choice.canComment) ? 'glyphicon glyphicon-comment active' : 'glyphicon glyphicon-comment ';
+            }
+        }
     });
 </script>
 

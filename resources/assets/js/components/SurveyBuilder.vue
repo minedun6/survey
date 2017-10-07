@@ -11,16 +11,14 @@
         </div>
         <div class="row">
             <div class="col-md-9">
-                <dropzone></dropzone>
                 <questions :data="ui.questions"></questions>
+                <dropzone></dropzone>
             </div>
             <div class="col-md-3">
-                <div class="row">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Question types :</div>
-                        <div class="panel-body" id="draggable-questions-type">
-                            <question-types :data="ui.questionsType"></question-types>
-                        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Question types :</div>
+                    <div class="panel-body" id="draggable-questions-type">
+                        <question-types :data="ui.questionsType"></question-types>
                     </div>
                 </div>
             </div>
@@ -34,8 +32,6 @@
         data() {
             return {
                 ui: {
-                    surveyTitle: 'Empty Survey',
-                    editingMode: false,
                     questions: [],
                     questionsType: [
                         {
@@ -56,11 +52,6 @@
                         },
                     ]
                 }
-            }
-        },
-        methods: {
-            toggleSurveyChangeTitle() {
-                this.ui.editingMode = !this.ui.editingMode;
             }
         }
     }
