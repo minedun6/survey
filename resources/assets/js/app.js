@@ -1,23 +1,23 @@
+import store from './vuex'
+
 require('./bootstrap');
 
 window.Vue = require('vue');
-window.eventHub = new Vue;
 
-Vue.component('survey-builder', require('./components/SurveyBuilder.vue'));
-Vue.component('survey-title', require('./components/Survey/SurveyHeader.vue'));
-Vue.component('questions', require('./components/Survey/Questions/Questions.vue'));
-Vue.component('choices', require('./components/Survey/Choice/Choices.vue'));
-Vue.component('question-types', require('./components/Survey/Questions/QuestionTypes.vue'));
-Vue.component('dropzone', require('./components/Survey/DropArea.vue'));
-
-
-Vue.component('multipleChoice', require('./components/Survey/Choice/MultipleChoice.vue'));
-Vue.component('singleChoice', require('./components/Survey/Choice/SingleChoice.vue'));
-Vue.component('scaleChoice', require('./components/Survey/Choice/ScaleChoice.vue'));
-Vue.component('freeChoice', require('./components/Survey/Choice/FreeChoice.vue'));
-
+Vue.component('survey', require('./app/survey/components/Survey.vue'));
+Vue.component('dropzone', require('./app/survey/components/DropZone.vue'));
+Vue.component('question-types', require('./app/survey/components/Question/QuestionTypes.vue'));
+Vue.component('question-type', require('./app/survey/components/Question/QuestionType.vue'));
+Vue.component('questions', require('./app/survey/components/Question/Questions.vue'));
+Vue.component('question', require('./app/survey/components/Question/Question.vue'));
+Vue.component('choices', require('./app/survey/components/Choice/Choices.vue'));
+Vue.component('choice', require('./app/survey/components/Choice/Choice.vue'));
+Vue.component('multipleChoice', require('./app/survey/components/Choice/MultipleChoice.vue'));
+Vue.component('singleChoice', require('./app/survey/components/Choice/SingleChoice.vue'));
+Vue.component('new-choice', require('./app/survey/components/Choice/NewChoice.vue'));
 
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store: store
 });

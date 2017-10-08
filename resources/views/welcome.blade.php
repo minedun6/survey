@@ -1,26 +1,25 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/css/app.css">
-    </head>
-    <body>
-        <div class="container-fluid" id="app">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <survey-builder></survey-builder>
-                </div>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laravel</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<div class="container-fluid" id="app">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <!-- Survey goes here -->
+            <survey></survey>
+            <!-- End of survey component -->
         </div>
-        <script src="/js/app.js"></script>
-        <script>
-
-        </script>
-    </body>
+    </div>
+</div>
+<script src="/js/app.js"></script>
+</body>
 </html>

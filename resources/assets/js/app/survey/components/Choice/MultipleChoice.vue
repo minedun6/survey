@@ -1,6 +1,6 @@
 <template>
     <div class="row form-group">
-        <div slot="iType" class="col-md-1" style="top: 5px; left: 6%;">
+        <div slot="type" class="col-md-1" style="top: 5px; left: 6%;">
             <input type="checkbox" disabled/>
         </div>
         <div slot="input" class="col-md-8">
@@ -8,13 +8,15 @@
         </div>
         <div slot="actions">
             <div class="col-md-1">
-                <input type="checkbox" autocomplete="off"
+                <input type="checkbox" autocomplete="off" v-model="choice.canComment"
                        style="display: none;">
-                <span :class="commentable" @click="triggerChoiceCanBeCommented"
+                <span :class="choice.canComment ? 'glyphicon glyphicon-comment active' : 'glyphicon glyphicon-comment'"
+                        @click="toggleCanComment(choice)"
                       style="cursor: pointer; top: 10px;"></span>
             </div>
             <div class="col-md-1">
             <span class="glyphicon glyphicon-trash"
+                  @click="deleteChoice({question, choice})"
                   style="cursor: pointer; top: 10px; right: 100%;"></span>
             </div>
         </div>
@@ -22,19 +24,19 @@
 </template>
 
 <script>
-    import Choice from './Choice';
+    import {mapActions} from 'vuex'
+    import Choice from './Choice.vue';
 
     export default Choice.extend({
-        computed: {
-            commentable() {
-                return (this.choice.canComment) ? 'glyphicon glyphicon-comment active' : 'glyphicon glyphicon-comment ';
-            }
+        methods: {
+            ...mapActions({
+                toggleCanComment: 'survey/toggleCanComment',
+                deleteChoice: 'survey/deleteChoice'
+            })
         }
-    });
+    })
 </script>
 
 <style scoped>
-    .active {
-        color: #15a4fa;
-    }
+
 </style>

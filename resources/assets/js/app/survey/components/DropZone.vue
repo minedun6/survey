@@ -9,21 +9,35 @@
 </template>
 
 <script>
-    import sortable from 'jquery-ui/ui/widgets/sortable'
+    import {mapActions} from 'vuex'
     import droppable from 'jquery-ui/ui/widgets/droppable'
 
     export default {
-        name: 'dropzone',
-        mounted: function () {
+        methods: {
+            ...mapActions({
+                addQuestion: 'survey/addQuestion'
+            })
+        },
+        mounted() {
+            let _this = this;
             $('#droppable-area').droppable({
                 classes: {
                     "ui-droppable-hover": "drop"
                 },
                 drop: function (event, ui) {
                     let draggable = ui.draggable;
-                    let questionType = draggable.attr('data-question-type');
-                    // Add a new blank question object instance to the questions array
-                    eventHub.$emit('question-dropped', {questionType})
+                    let type = draggable.attr('data-question-type');
+                    // call a mutation to commit action
+                    _this.addQuestion({
+                        title: '',
+                        mandatory: false,
+                        type: type,
+                        choices: [
+                            {text: '', canComment: false},
+                            {text: '', canComment: false},
+                            {text: '', canComment: false}
+                        ]
+                    })
                 }
             });
         }
