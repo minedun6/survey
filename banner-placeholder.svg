@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="300px" viewBox="0 0 600 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:link="http://www.w3.org/1999/xlink">
+
+<title>image-placeholder</title>   
+<desc>Created with Sketch</desc>
+<defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="image-placeholder_3x2" fill-rule="nonzero">
+            <rect id="Rectangle-path" fill="#EDECEB" x="0" y="0" width="600" height="300"></rect>
+            <g id="Group" transform="translate(234.000000, 98.000000)" fill="#FFFFFF">
+                <path d="M0.539,0.5 L0.539,103.5 L131.461,103.5 L131.431,0.5 L0.539,0.5 Z M120.908,92.33 L11.707,92.33 L11.707,11.669 L120.908,11.669 L120.908,92.33 L120.908,92.33 Z" id="Shape"></path>
+                <polygon id="Shape" points="17.58 83.643 40.088 59.984 48.521 63.633 75.13 35.308 85.604 47.836 90.329 44.982 115.898 83.643"></polygon>
+                <circle id="Oval" cx="43.582" cy="32.18" r="9.83"></circle>   
+            </g> 
+        </g>
+    </g>   
+</svg>

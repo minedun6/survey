@@ -13,13 +13,13 @@
 <body>
 <div class="container-fluid" id="app">
     <navigation></navigation>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <!-- Survey goes here -->
-            <survey></survey>
-            <!-- End of survey component -->
+    <!-- Survey goes here -->
+    <div class="row">
+        <div class="col-md-4">
+            <create-product></create-product>
         </div>
     </div>
+    <!-- End of survey component -->
 </div>
 <script src="/js/app.js"></script>
 </body>
