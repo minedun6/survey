@@ -18,6 +18,11 @@
                 grid: [66, 66],
                 minWidth: 66,
                 minHeight: 66,
+                resize: function(event, ui){
+                    if (ui.position.left + ui.size.width > $('.tile').left) {
+                        $(this).resizable({ maxWidth: ui.size.width });
+                    }
+                }
             })
         }
     }

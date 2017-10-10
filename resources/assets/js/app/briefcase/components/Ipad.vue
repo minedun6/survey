@@ -12,11 +12,20 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex'
     import Grid from './Grid.vue';
 
     export default {
         components: {
             Grid
+        },
+        mounted() {
+            for (let i = 0; i<= 5; i++) this.addTile();
+        },
+        methods: {
+            ...mapActions({
+                addTile: 'briefcase/addTile'
+            })
         }
     }
 </script>
@@ -55,18 +64,30 @@
         background: url(../../../../images/ipad-header.png) no-repeat;
         opacity: .5;
     }
-    .ipad-grid{
-        width: 994px;
+
+    .ipad-grid {
+        width: 992px;
         height: 664px;
         margin: 85px auto 0;
         display: grid;
         grid-template-columns: repeat(15, 1fr);
         border: 1px dashed;
     }
+
     .cell {
         border: 1px solid #eee;
     }
-    .tile{
+
+    .tiles {
+        position: absolute;
+        display: block;
+        width: 992px;
+        height: 664px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tile {
         position: absolute;
         display: inline-block;
         width: 126px;
@@ -78,5 +99,29 @@
         -moz-transform: translate3d(0, 0, 0);
         -o-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0)
+    }
+
+    @media only screen and (max-width: 768px) {
+        .panel-default {
+            overflow-y: auto;
+            overflow-x: scroll;
+            width: 100% !important;
+        }
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .panel-default {
+            overflow-y: auto;
+            overflow-x: scroll;
+            width: 100% !important;
+        }
+    }
+
+    @media only screen and (min-width: 1024px) {
+        .panel-default {
+            overflow-y: auto;
+            overflow-x: scroll;
+            width: 100% !important;
+        }
     }
 </style>
