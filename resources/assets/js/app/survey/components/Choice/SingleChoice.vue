@@ -26,7 +26,7 @@
 <script>
     import Choice from './Choice.vue';
     import {mapActions} from 'vuex';
-    
+
     export default Choice.extend({
         methods: {
             ...mapActions({

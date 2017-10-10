@@ -1,6 +1,4 @@
 import store from './vuex'
-import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon'
 
 require('./bootstrap');
 
@@ -20,12 +18,8 @@ Vue.component('choice', require('./app/survey/components/Choice/Choice.vue'));
 Vue.component('multipleChoice', require('./app/survey/components/Choice/MultipleChoice.vue'));
 Vue.component('singleChoice', require('./app/survey/components/Choice/SingleChoice.vue'));
 Vue.component('new-choice', require('./app/survey/components/Choice/NewChoice.vue'));
-Vue.component('icon', Icon);
 
 const app = new Vue({
     el: '#app',
-    store: store,
-    components: {
-        Icon
-    }
+    store: store
 });
