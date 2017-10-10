@@ -6,7 +6,7 @@ window.Vue = require('vue');
 
 Vue.component('navigation', require('./app/global/Navigation.vue'));
 Vue.component('create-product', require('./app/product/CreateProduct.vue'));
-Vue.component('ipad', require('./app/global/Ipad.vue'));
+Vue.component('ipad', require('./app/briefcase/components/Ipad.vue'));
 Vue.component('survey', require('./app/survey/components/Survey.vue'));
 Vue.component('dropzone', require('./app/survey/components/DropZone.vue'));
 Vue.component('question-types', require('./app/survey/components/Question/QuestionTypes.vue'));
