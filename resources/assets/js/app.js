@@ -5,6 +5,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 Vue.component('navigation', require('./app/global/Navigation.vue'));
+Vue.component('dashboard', require('./app/dashboard/components/Dashboard.vue'));
 Vue.component('create-product', require('./app/product/CreateProduct.vue'));
 Vue.component('ipad', require('./app/briefcase/components/Ipad.vue'));
 Vue.component('survey', require('./app/survey/components/Survey.vue'));
