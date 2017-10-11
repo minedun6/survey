@@ -1,6 +1,7 @@
 <template>
     <div class="inner-template">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button class="btn btn-xs btn-default" @click="addTile">+</button>
             <div class="ipad">
                 <div class="ipad-content">
                     <div class="ipad-header"></div>
@@ -18,9 +19,6 @@
     export default {
         components: {
             Grid
-        },
-        mounted() {
-            for (let i = 0; i<= 5; i++) this.addTile();
         },
         methods: {
             ...mapActions({

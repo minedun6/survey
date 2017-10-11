@@ -18,7 +18,8 @@ export default {
             height: 66
         },
         // grid properties
-        nbr: 150, // number of tiles
+        nbr: 150, // number of tiles,
+        overlapDrag: false,
         tiles: []
     },
 
