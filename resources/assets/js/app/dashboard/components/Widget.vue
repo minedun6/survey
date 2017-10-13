@@ -2,7 +2,7 @@
     <div class="panel panel-default widget" :data-order="index">
         <div class="panel-heading handle">
             <div class="panel-title">
-                <h4>Hello</h4>
+                <h4>{{ widget.title }}</h4>
             </div>
         </div>
         <div class="panel-body">
@@ -15,12 +15,7 @@
 
 <script>
     export default {
-        props:['widget', 'index'],
-        data() {
-            return {
-                title: ''
-            }
-        }
+        props:['widget', 'index']
     }
 </script>
 
