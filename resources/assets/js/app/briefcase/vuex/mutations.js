@@ -25,8 +25,27 @@ export const checkOverlapDrag = (state, {helper, offset}) => {
     state.grid.overlapDrag = overlap;
 };
 // Check if active tile (being resized) intersects with another existing tile
-export const checkOverlapResize = (state, {helper, offset}) => {
+export const checkOverlapResize = (state, {width, height, offset}) => {
+    var overlap = false;
+    var draggingLeft = offset.left;
+    var draggingTop = offset.top;
+    var draggingRight = draggingLeft + parseInt(width);
+    var draggingBottom = draggingTop + parseInt(height);
 
+    $(".ui-resizable:not(.ui-resizable-resizing)").each(function () {
+
+        var draggableLeft = $(this).offset().left;
+        var draggableTop = $(this).offset().top;
+        var draggableRight = draggableLeft + parseInt($(this).css("width").slice(0, -2));
+        var draggableBottom = draggableTop + parseInt($(this).css("height").slice(0, -2));
+
+        overlap = overlap || !(draggableLeft >= draggingRight
+            || draggableRight <= draggingLeft
+            || draggableTop >= draggingBottom
+            || draggableBottom <= draggingTop);
+    });
+
+    state.grid.overlapResize = overlap;
 };
 
 export const checkOverlapToAdd = (state, {helper, offset}) => {

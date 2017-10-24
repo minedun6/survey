@@ -9,9 +9,18 @@
     import draggable from 'jquery-ui/ui/widgets/draggable';
 
     export default {
+        data() {
+            return {
+                tileResizing: {
+                    w: 66,
+                    h: 66
+                }
+            }
+        },
         computed: {
             ...mapGetters({
-                overlapDrag: 'briefcase/overlapDrag'
+                overlapDrag: 'briefcase/overlapDrag',
+                overlapResize: 'briefcase/overlapResize'
             })
         },
         mounted() {
@@ -20,26 +29,45 @@
                 containment: ".ipad-grid",
                 cursor: "move",
                 scroll: false,
-                grid: [66, 66],
+                grid: [_this.tileResizing.w, _this.tileResizing.h],
                 drag: function (e, ui) {
                     _this.checkOverlapDrag(ui);
                     return !_this.overlapDrag;
                 }
             }).resizable({
                 containment: ".ipad-grid",
-                grid: [66, 66],
-                minWidth: 66,
-                minHeight: 66,
+                grid: [_this.tileResizing.w, _this.tileResizing.h],
+                minWidth: _this.tileResizing.w,
+                minHeight: _this.tileResizing.h,
+                start: function (e, ui) {
+                    _this.tileResizing.w = $(this).width();
+                    _this.tileResizing.h = $(this).height();
+                },
                 resize: function (event, ui) {
-                    if (ui.position.left + ui.size.width > $('.tile').left) {
-                        $(this).resizable({maxWidth: ui.size.width});
+                    let width = $(this).width()
+                    let height = $(this).height()
+                    let offset = $(this).offset()
+                    _this.checkOverlapResize({
+                        width, height, offset
+                    });
+                    if (_this.overlapResize) {
+                        $(this).resizable('option', 'maxWidth', _this.tileResizing.w)
+                        $(this).resizable('option', 'maxHeight', _this.tileResizing.h)
+                    } else {
+                        _this.tileResizing.w = $(this).width()
+                        _this.tileResizing.h = $(this).height()
                     }
+                },
+                stop: function (e, ui) {
+                    $(this).resizable('option', 'maxWidth', 1024);
+                    $(this).resizable('option', 'maxHeight', 768);
                 }
             })
         },
         methods: {
             ...mapActions({
-                checkOverlapDrag: 'briefcase/checkOverlapDrag'
+                checkOverlapDrag: 'briefcase/checkOverlapDrag',
+                checkOverlapResize: 'briefcase/checkOverlapResize'
             })
         }
     }

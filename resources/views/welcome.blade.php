@@ -16,7 +16,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <!-- Survey goes here -->
-            {{--<survey></survey>--}}
+            <!--<survey></survey>-->
             <ipad></ipad>
             <!-- End of survey component -->
         </div>

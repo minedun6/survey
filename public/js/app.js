@@ -42402,6 +42402,7 @@ var newChoice = function newChoice(state) {
         // grid properties
         nbr: 150, // number of tiles,
         overlapDrag: false,
+        overlapResize: false,
         tiles: []
     }
 
@@ -42444,8 +42445,27 @@ var checkOverlapDrag = function checkOverlapDrag(state, _ref) {
 };
 // Check if active tile (being resized) intersects with another existing tile
 var checkOverlapResize = function checkOverlapResize(state, _ref2) {
-    var helper = _ref2.helper,
+    var width = _ref2.width,
+        height = _ref2.height,
         offset = _ref2.offset;
+
+    var overlap = false;
+    var draggingLeft = offset.left;
+    var draggingTop = offset.top;
+    var draggingRight = draggingLeft + parseInt(width);
+    var draggingBottom = draggingTop + parseInt(height);
+
+    $(".ui-resizable:not(.ui-resizable-resizing)").each(function () {
+
+        var draggableLeft = $(this).offset().left;
+        var draggableTop = $(this).offset().top;
+        var draggableRight = draggableLeft + parseInt($(this).css("width").slice(0, -2));
+        var draggableBottom = draggableTop + parseInt($(this).css("height").slice(0, -2));
+
+        overlap = overlap || !(draggableLeft >= draggingRight || draggableRight <= draggingLeft || draggableTop >= draggingBottom || draggableBottom <= draggingTop);
+    });
+
+    state.grid.overlapResize = overlap;
 };
 
 var checkOverlapToAdd = function checkOverlapToAdd(state, _ref3) {
@@ -42462,6 +42482,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveBriefcase", function() { return saveBriefcase; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTile", function() { return addTile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkOverlapDrag", function() { return checkOverlapDrag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkOverlapResize", function() { return checkOverlapResize; });
 var saveBriefcase = function saveBriefcase(_ref) {
     //
 
@@ -42483,6 +42504,13 @@ var checkOverlapDrag = function checkOverlapDrag(_ref3, ui) {
     commit('checkOverlapDrag', ui);
 };
 
+var checkOverlapResize = function checkOverlapResize(_ref4, ui) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+
+    commit('checkOverlapResize', ui);
+};
+
 /***/ }),
 /* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -42492,6 +42520,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "grid", function() { return grid; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lastTile", function() { return lastTile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "overlapDrag", function() { return overlapDrag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "overlapResize", function() { return overlapResize; });
 var grid = function grid(state) {
     return state.grid;
 };
@@ -42506,6 +42535,12 @@ var overlapDrag = function overlapDrag(_ref2) {
     var grid = _ref2.grid;
 
     return grid.overlapDrag;
+};
+
+var overlapResize = function overlapResize(_ref3) {
+    var grid = _ref3.grid;
+
+    return grid.overlapResize;
 };
 
 /***/ }),
@@ -49641,7 +49676,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -49670,8 +49705,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tileResizing: {
+                w: 66,
+                h: 66
+            }
+        };
+    },
+
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])({
-        overlapDrag: 'briefcase/overlapDrag'
+        overlapDrag: 'briefcase/overlapDrag',
+        overlapResize: 'briefcase/overlapResize'
     })),
     mounted: function mounted() {
         var _this = this;
@@ -49679,26 +49724,45 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             containment: ".ipad-grid",
             cursor: "move",
             scroll: false,
-            grid: [66, 66],
+            grid: [_this.tileResizing.w, _this.tileResizing.h],
             drag: function drag(e, ui) {
                 _this.checkOverlapDrag(ui);
                 return !_this.overlapDrag;
             }
         }).resizable({
             containment: ".ipad-grid",
-            grid: [66, 66],
-            minWidth: 66,
-            minHeight: 66,
+            grid: [_this.tileResizing.w, _this.tileResizing.h],
+            minWidth: _this.tileResizing.w,
+            minHeight: _this.tileResizing.h,
+            start: function start(e, ui) {
+                _this.tileResizing.w = $(this).width();
+                _this.tileResizing.h = $(this).height();
+            },
             resize: function resize(event, ui) {
-                if (ui.position.left + ui.size.width > $('.tile').left) {
-                    $(this).resizable({ maxWidth: ui.size.width });
+                var width = $(this).width();
+                var height = $(this).height();
+                var offset = $(this).offset();
+                _this.checkOverlapResize({
+                    width: width, height: height, offset: offset
+                });
+                if (_this.overlapResize) {
+                    $(this).resizable('option', 'maxWidth', _this.tileResizing.w);
+                    $(this).resizable('option', 'maxHeight', _this.tileResizing.h);
+                } else {
+                    _this.tileResizing.w = $(this).width();
+                    _this.tileResizing.h = $(this).height();
                 }
+            },
+            stop: function stop(e, ui) {
+                $(this).resizable('option', 'maxWidth', 1024);
+                $(this).resizable('option', 'maxHeight', 768);
             }
         });
     },
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])({
-        checkOverlapDrag: 'briefcase/checkOverlapDrag'
+        checkOverlapDrag: 'briefcase/checkOverlapDrag',
+        checkOverlapResize: 'briefcase/checkOverlapResize'
     }))
 });
 

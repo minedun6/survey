@@ -9,3 +9,7 @@ export const lastTile = ({grid}) => {
 export const overlapDrag = ({grid}) => {
     return grid.overlapDrag;
 };
+
+export const overlapResize = ({grid}) => {
+    return grid.overlapResize;
+};

@@ -20,6 +20,7 @@ export default {
         // grid properties
         nbr: 150, // number of tiles,
         overlapDrag: false,
+        overlapResize: false,
         tiles: []
     },
 
