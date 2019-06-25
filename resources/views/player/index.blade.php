@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
+    <title>Video.js Player</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <!-- Latest compiled and minified CSS -->
@@ -12,15 +12,9 @@
 </head>
 <body>
 <div class="container-fluid" id="app">
-    <navigation></navigation>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <!-- Survey goes here -->
-            {{--  <survey></survey>  --}}
-            <ipad></ipad>
-            <!-- End of survey component -->
-        </div>
-    </div>
+    <video-player
+        api="{{ route('api.video') }}"
+    ></video-player>
 </div>
 <script src="/js/app.js"></script>
 </body>

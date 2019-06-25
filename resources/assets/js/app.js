@@ -19,6 +19,7 @@ Vue.component('choice', require('./app/survey/components/Choice/Choice.vue'));
 Vue.component('multipleChoice', require('./app/survey/components/Choice/MultipleChoice.vue'));
 Vue.component('singleChoice', require('./app/survey/components/Choice/SingleChoice.vue'));
 Vue.component('new-choice', require('./app/survey/components/Choice/NewChoice.vue'));
+Vue.component('video-player', require('./app/player/components/VideoPlayer.vue'))
 
 const app = new Vue({
     el: '#app',

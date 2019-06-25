@@ -5,13 +5,6 @@ export default {
             width: 66,
             height: 66
         },
-        // default tile properties
-        defaultTile: {
-            sx: 3, // ???? what does it represent
-            sy: 3,
-            width: 126,
-            height: 126
-        },
         // default properties to resize tile
         tileResize: {
             width: 66,
@@ -21,7 +14,31 @@ export default {
         nbr: 150, // number of tiles,
         overlapDrag: false,
         overlapResize: false,
-        tiles: []
+        overlapAdd: false,
+        tiles: [],
+        tile: {
+            id: new Date().getTime(),
+            title: '',
+            description: '',
+            design: {
+                bgOpacity: '.8',
+                bgColor: '#CD363C',
+                textColor: '#ffffff'
+            },
+            position: {
+                startX: 3,
+                startY: 3,
+                endX: 129,
+                end_y: 129,
+                width: 126,
+                height: 126,
+            },
+            icon: {
+                type: '',
+                id: 0,
+                src: ''
+            }
+        }
     },
 
 }
